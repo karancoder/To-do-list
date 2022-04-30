@@ -1,0 +1,68 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+    background-image: url(./images/background_image1.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    color: white;
+    min-height: 100vh;
+}
+
+header {
+    font-size: 1.5rem;
+    min-height: 15vh;
+    font-family: "Lobster", cursive;
+}
+
+header,
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form input,
+form button {
+    height: auto;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    border: none;
+    background: rgb(255, 255, 255);
+}
+
+form button {
+    color: rgba(0, 120, 218, 0.8);
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+form button:hover {
+    background: rgba(0, 120, 218, 0.8);
+    color: white;
+}
+
+.view-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 480px;
+    width: 30%;
+    margin: 3rem;
+    min-height: 790px;
+    background-color: rgba(0, 120, 218, 0.8);
+}
