@@ -4,10 +4,12 @@
 const todoInput = document.querySelector(".todo-input");
 const todoButton = document.querySelector(".todo-button");
 const todoList = document.querySelector(".todo-list");
+const filterOption = document.querySelector(".todo-filter");
 
 // Event bindings
 todoButton.addEventListener("click", addTodo);
 todoList.addEventListener("click", deleteOrCheckTodo);
+filterOption.addEventListener("change", filterTodo);
 
 // Event handlers
 
@@ -22,8 +24,33 @@ function deleteOrCheckTodo(event) {
         deleteTodoUsingBtn(item);
     }
     if (item.classList[0] === "check-btn") {
-        childTodoUsingBtn(item);
+        checkTodoUsingBtn(item);
     }
+}
+
+function filterTodo(event) {
+    const todos = todoList.childNodes;
+    todos.forEach((todo) => {
+        switch (event.target.value) {
+            case "all":
+                todo.style.display = "flex";
+                break;
+            case "checked":
+                if (todo.classList.contains("checked")) {
+                    todo.style.display = "flex";
+                } else {
+                    todo.style.display = "none";
+                }
+                break;
+            case "unchecked":
+                if (!todo.classList.contains("checked")) {
+                    todo.style.display = "flex";
+                } else {
+                    todo.style.display = "none";
+                }
+                break;
+        }
+    });
 }
 
 // Helper functions
@@ -70,7 +97,7 @@ function deleteTodoUsingBtn(item) {
     });
 }
 
-function childTodoUsingBtn(item) {
+function checkTodoUsingBtn(item) {
     const todo = item.parentElement;
     todo.classList.toggle("checked");
 }
