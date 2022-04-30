@@ -16,8 +16,8 @@ filterOption.addEventListener("change", filterTodo);
 
 function addTodo(event) {
     event.preventDefault();
-    saveLocalTodo(todoInput.value);
-    addTodoDiv(todoInput.value);
+    saveLocalTodo(todoInput.value, "unchecked");
+    addTodoDiv(todoInput.value, "unchecked");
     resetInputValue();
 }
 
@@ -42,7 +42,15 @@ function resetInputValue() {
     todoInput.value = "";
 }
 
-function addTodoDiv(value) {
+function toggleCheckUncheck(currState) {
+    if (currState === "checked") {
+        return "unchecked";
+    } else {
+        return "checked";
+    }
+}
+
+function addTodoDiv(value, todoState) {
     const todoDiv = document.createElement("div");
     todoDiv.classList.add("todo");
     const newTodo = createTodo(value);
@@ -51,7 +59,16 @@ function addTodoDiv(value) {
     todoDiv.appendChild(checkTodoButton);
     const trashTodoButton = createTrashTodoButton();
     todoDiv.appendChild(trashTodoButton);
+    updateTodoDivUsingState(todoDiv, todoState);
     todoList.appendChild(todoDiv);
+}
+
+function updateTodoDivUsingState(todoDiv, todoState) {
+    if (todoState === "checked") {
+        todoDiv.classList.add("checked");
+    } else {
+        todoDiv.classList.remove("checked");
+    }
 }
 
 function createTodo(value) {
@@ -85,7 +102,11 @@ function deleteTodoUsingBtn(item) {
 }
 
 function checkTodoUsingBtn(item) {
+    let todos = getLocalTodos();
     const todo = item.parentElement;
+    const todoValue = todo.children[0].innerText;
+    todos[todoValue] = toggleCheckUncheck(todos[todoValue]);
+    localStorage.setItem("todos", JSON.stringify(todos));
     todo.classList.toggle("checked");
 }
 
@@ -132,28 +153,28 @@ function setDisplayIfFilterUnchecked(todo) {
 function getLocalTodos() {
     let todos;
     if (localStorage.getItem("todos") === null) {
-        todos = [];
+        todos = {};
     } else {
         todos = JSON.parse(localStorage.getItem("todos"));
     }
     return todos;
 }
 
-function saveLocalTodo(todo) {
+function saveLocalTodo(todo, todoState) {
     let todos = getLocalTodos();
-    todos.push(todo);
+    todos[todo] = todoState;
     saveTodosToLocalStorage(todos);
 }
 
 function updateFromLocalTodo() {
     let todos = getLocalTodos();
-    todos.forEach((todo) => addTodoDiv(todo));
+    Object.keys(todos).forEach((todo) => addTodoDiv(todo, todos[todo]));
 }
 
 function removeFromLocalTodo(todo) {
     let todos = getLocalTodos();
     let todoText = todo.children[0].innerText;
-    todos.splice(todos.indexOf(todoText), 1);
+    delete todos[todoText];
     saveTodosToLocalStorage(todos);
 }
 
