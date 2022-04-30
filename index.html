@@ -7,7 +7,11 @@
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Lobster&family=Open+Sans&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Radio+Canada&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Crimson+Pro&display=swap"
             rel="stylesheet"
         />
         <link
@@ -31,6 +35,13 @@
                     <button type="submit" class="todo-button">
                         <i class="fas fa-plus-square"></i>
                     </button>
+                    <div class="select">
+                        <select name="todos" id="todos-filter">
+                            <option value="all">All</option>
+                            <option value="checked">Checked</option>
+                            <option value="unchecked">Unchecked</option>
+                        </select>
+                    </div>
                 </form>
 
                 <div class="todo-list-container">
